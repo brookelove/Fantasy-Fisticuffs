@@ -6,66 +6,17 @@ canvas.height = 576;
 // creates the black background for the game
 context.fillRect(0, 0, canvas.width, canvas.height);
 const gravity = 0.7;
-class Sprite {
-  //nesting the constructor like this promotes cleaner syntax
-  constructor({ position, velocity, color = "red", offset }) {
-    // models the position of the sprites on the screen
-    this.position = position;
-    this.velocity = velocity;
-    this.height = 150;
-    this.width = 50;
-    this.lastKey;
-    this.color = color;
-    this.isAttacking;
-    this.health = 100;
-    this.attackBox = {
-      position: {
-        x: this.position.x,
-        y: this.position.y,
-      },
-      offset: offset,
-      width: 100,
-      height: 50,
-    };
-  }
-  draw() {
-    context.fillStyle = this.color;
-    context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    //attackBox
-    if (this.isAttacking) {
-      context.fillStyle = "blue";
-      context.fillRect(
-        this.attackBox.position.x,
-        this.attackBox.position.y,
-        this.attackBox.width,
-        this.attackBox.height
-      );
-    }
-  }
-  update() {
-    this.draw();
-    this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
-    this.attackBox.position.y = this.position.y;
-    this.position.x += this.velocity.x;
-    this.position.y += this.velocity.y;
-
-    // establishes the gravity
-    if (this.position.y + this.height + this.velocity.y >= canvas.height) {
-      this.velocity.y = 0;
-    } else {
-      this.velocity.y += gravity;
-    }
-  }
-  attack() {
-    this.isAttacking = true;
-    setTimeout(() => {
-      this.isAttacking = false;
-    }, 100);
-  }
-}
-
-const player = new Sprite({
+const background = new Sprite({
+  context: context,
+  position: {
+    x: 0,
+    y: 0,
+  },
+  imageSrc: "gameAssets/image.png",
+  width: 1024,
+  height: 576,
+});
+const player = new Fighter({
   position: {
     x: 0,
     y: 0,
@@ -82,7 +33,7 @@ const player = new Sprite({
 
 player.draw();
 
-const enemy = new Sprite({
+const enemy = new Fighter({
   position: {
     x: 400,
     y: 100,
@@ -99,7 +50,6 @@ const enemy = new Sprite({
 });
 
 enemy.draw();
-console.log(player);
 const keys = {
   a: {
     pressed: false,
@@ -170,6 +120,8 @@ function animate() {
   //   context.clearRect(0, 0, canvas.width, canvas.height); // removes the paint effect of the code
   context.fillStyle = "black";
   context.fillRect(0, 0, canvas.width, canvas.height); // removes the paint effect of the code
+
+  background.update();
   player.update();
   enemy.update();
 
