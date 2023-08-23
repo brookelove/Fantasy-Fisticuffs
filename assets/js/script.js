@@ -133,7 +133,37 @@ function rectangularCollision({ rect1, rect2 }) {
     rect1.attackBox.position.y <= rect2.position.y + rect2.height
   );
 }
+let gameOver = false;
 
+function whoWins({ player, enemy, timerEl }) {
+  if (gameOver) {
+    return;
+  }
+  clearTimeout(timerEl);
+  if (player.health === enemy.health) {
+    console.log("tie");
+  } else if (player.health > enemy.health) {
+    console.log("player 1 wins");
+  } else if (player.health < enemy.health) {
+    console.log("player 2 wins");
+  }
+  gameOver = true;
+}
+
+let timeLeft = 60;
+let timerEl;
+function countdown() {
+  if (timeLeft > 0) {
+    // clearTimeout(timerEl);
+    timerEl = setTimeout(countdown, 1000);
+    timeLeft--;
+    document.getElementById("timer").innerHTML = timeLeft;
+  }
+  if (timeLeft === 0) {
+    whoWins({ player, enemy, timerEl });
+  }
+}
+countdown();
 function animate() {
   //the ability to animate the objects frame by frame
   window.requestAnimationFrame(animate);
@@ -181,6 +211,10 @@ function animate() {
     player.health -= 20;
     document.getElementById("playerHealth").style.width = player.health + "%";
     console.log("enemy HIT");
+  }
+
+  if (enemy.health <= 0 || player.health <= 0) {
+    whoWins({ player, enemy, timerEl });
   }
 }
 animate();
