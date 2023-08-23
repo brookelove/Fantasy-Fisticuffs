@@ -8,7 +8,7 @@ context.fillRect(0, 0, canvas.width, canvas.height);
 const gravity = 0.7;
 class Sprite {
   //nesting the constructor like this promotes cleaner syntax
-  constructor({ position, velocity, color = "red" }) {
+  constructor({ position, velocity, color = "red", offset }) {
     // models the position of the sprites on the screen
     this.position = position;
     this.velocity = velocity;
@@ -16,33 +16,36 @@ class Sprite {
     this.width = 50;
     this.lastKey;
     this.color = color;
+    this.isAttacking;
     this.attackBox = {
-      position: this.position,
+      position: {
+        x: this.position.x,
+        y: this.position.y,
+      },
+      offset: offset,
       width: 100,
       height: 50,
     };
   }
   draw() {
     context.fillStyle = this.color;
-    context.fillRect(
-      this.position.x,
-      this.position.y,
-      this.width,
-      this.height,
-      this.height
-    );
+    context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     //attackBox
-    context.fillStyle = "blue";
-    context.fillRect(
-      this.attackBox.position.x,
-      this.attackBox.position.y,
-      this.attackBox.width,
-      this.attackBox.height
-    );
+    if (this.isAttacking) {
+      context.fillStyle = "blue";
+      context.fillRect(
+        this.attackBox.position.x,
+        this.attackBox.position.y,
+        this.attackBox.width,
+        this.attackBox.height
+      );
+    }
   }
   update() {
     this.draw();
+    this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
+    this.attackBox.position.y = this.position.y;
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
@@ -52,15 +55,12 @@ class Sprite {
     } else {
       this.velocity.y += gravity;
     }
-
-    //collision
-    if (
-      player.attackBox.position.x + player.attackBox.width >=
-        enemy.position.x &&
-      player.attackBox.position.x <= enemy.position.x + enemy.width
-    ) {
-      console.log("HIT");
-    }
+  }
+  attack() {
+    this.isAttacking = true;
+    setTimeout(() => {
+      this.isAttacking = false;
+    }, 100);
   }
 }
 
@@ -72,6 +72,10 @@ const player = new Sprite({
   velocity: {
     x: 0,
     y: 10,
+  },
+  offset: {
+    x: 0,
+    y: 0,
   },
 });
 
@@ -87,6 +91,10 @@ const enemy = new Sprite({
     y: 0,
   },
   color: "green",
+  offset: {
+    x: -50,
+    y: 0,
+  },
 });
 
 enemy.draw();
@@ -110,9 +118,20 @@ const keys = {
   arrowUp: {
     pressed: false,
   },
+  arrowDown: {
+    pressed: false,
+  },
 };
 
 let lastKey;
+function rectangularCollision({ rect1, rect2 }) {
+  return (
+    rect1.attackBox.position.x + rect1.attackBox.width >= rect2.position.x &&
+    rect1.attackBox.position.x <= rect2.position.x + rect2.width &&
+    rect1.attackBox.position.y + rect1.attackBox.height >= rect2.position.y &&
+    rect1.attackBox.position.y <= rect2.position.y + rect2.height
+  );
+}
 
 function animate() {
   //the ability to animate the objects frame by frame
@@ -142,6 +161,22 @@ function animate() {
   } else if (keys.arrowUp.pressed && enemy.lastKey === "ArrowUp") {
     enemy.velocity.y = -20;
   }
+
+  //collision detection
+  if (
+    rectangularCollision({ rect1: player, rect2: enemy }) &&
+    player.isAttacking
+  ) {
+    player.isAttacking = false;
+    console.log("player HIT");
+  }
+  if (
+    rectangularCollision({ rect1: enemy, rect2: player }) &&
+    enemy.isAttacking
+  ) {
+    enemy.isAttacking = false;
+    console.log("enemy HIT");
+  }
 }
 animate();
 
@@ -159,6 +194,9 @@ window.addEventListener("keydown", (event) => {
       keys.w.pressed = true;
       player.lastKey = "w";
       break;
+    case " ":
+      player.isAttacking = true;
+      break;
     case "ArrowRight":
       keys.arrowRight.pressed = true;
       enemy.lastKey = "ArrowRight";
@@ -171,8 +209,11 @@ window.addEventListener("keydown", (event) => {
       keys.arrowUp.pressed = true;
       enemy.lastKey = "ArrowUp";
       break;
+    case "ArrowDown":
+      keys.arrowDown.pressed = false;
+      enemy.isAttacking = true;
+      break;
   }
-  console.log(event.key);
 });
 window.addEventListener("keyup", (event) => {
   switch (event.key) {
@@ -203,5 +244,4 @@ window.addEventListener("keyup", (event) => {
       lastKey = "ArrowUp";
       break;
   }
-  console.log(event.key);
 });
