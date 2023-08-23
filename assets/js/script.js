@@ -17,6 +17,7 @@ class Sprite {
     this.lastKey;
     this.color = color;
     this.isAttacking;
+    this.health = 100;
     this.attackBox = {
       position: {
         x: this.position.x,
@@ -168,6 +169,8 @@ function animate() {
     player.isAttacking
   ) {
     player.isAttacking = false;
+    enemy.health -= 20;
+    document.getElementById("enemyHealth").style.width = enemy.health + "%";
     console.log("player HIT");
   }
   if (
@@ -175,6 +178,8 @@ function animate() {
     enemy.isAttacking
   ) {
     enemy.isAttacking = false;
+    player.health -= 20;
+    document.getElementById("playerHealth").style.width = player.health + "%";
     console.log("enemy HIT");
   }
 }
