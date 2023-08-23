@@ -8,16 +8,38 @@ context.fillRect(0, 0, canvas.width, canvas.height);
 const gravity = 0.7;
 class Sprite {
   //nesting the constructor like this promotes cleaner syntax
-  constructor({ position, velocity }) {
+  constructor({ position, velocity, color = "red" }) {
     // models the position of the sprites on the screen
     this.position = position;
     this.velocity = velocity;
     this.height = 150;
+    this.width = 50;
     this.lastKey;
+    this.color = color;
+    this.attackBox = {
+      position: this.position,
+      width: 100,
+      height: 50,
+    };
   }
   draw() {
-    context.fillStyle = "red";
-    context.fillRect(this.position.x, this.position.y, 50, 150, this.height);
+    context.fillStyle = this.color;
+    context.fillRect(
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height,
+      this.height
+    );
+
+    //attackBox
+    context.fillStyle = "blue";
+    context.fillRect(
+      this.attackBox.position.x,
+      this.attackBox.position.y,
+      this.attackBox.width,
+      this.attackBox.height
+    );
   }
   update() {
     this.draw();
@@ -29,6 +51,15 @@ class Sprite {
       this.velocity.y = 0;
     } else {
       this.velocity.y += gravity;
+    }
+
+    //collision
+    if (
+      player.attackBox.position.x + player.attackBox.width >=
+        enemy.position.x &&
+      player.attackBox.position.x <= enemy.position.x + enemy.width
+    ) {
+      console.log("HIT");
     }
   }
 }
@@ -55,6 +86,7 @@ const enemy = new Sprite({
     x: 0,
     y: 0,
   },
+  color: "green",
 });
 
 enemy.draw();
