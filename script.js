@@ -16,15 +16,28 @@ const background = new Sprite({
   width: 1024,
   height: 576,
 });
-const tree1 = new Sprite({
+const shop = new AnimatedSprite({
   context: context,
   position: {
     x: 700,
-    y: 140,
+    y: 170,
   },
-  width: 400,
-  height: 400,
-  imageSrc: "gameAssets/tree.png",
+  imageSrc: "gameAssets/shop.png",
+  // width: 1000,
+  // height: 50,
+  scale: 2.5,
+  framesMax: 6,
+});
+
+const tree1 = new Sprite({
+  context: context,
+  position: {
+    x: 250,
+    y: 370,
+  },
+  width: 60,
+  height: 120,
+  imageSrc: "gameAssets/lamp.png",
 });
 const player = new Fighter({
   position: {
@@ -133,6 +146,7 @@ function animate() {
 
   background.update();
   tree1.update();
+  shop.update();
   player.update();
   enemy.update();
 
