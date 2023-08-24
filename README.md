@@ -24,4 +24,6 @@ A fun game filled with magical creatures that battle.
 
 ## Resources
 
-[Cat Figths](https://9e0.itch.io/cute-legends-cat-heroes)
+[Cute Legeneds Heroes](https://9e0.itch.io/cute-legends-cat-heroes)
+
+[Oak Woods Shop and Lanetern](https://brullov.itch.io/oak-woods)

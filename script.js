@@ -23,8 +23,6 @@ const shop = new AnimatedSprite({
     y: 170,
   },
   imageSrc: "gameAssets/shop.png",
-  // width: 1000,
-  // height: 50,
   scale: 2.5,
   framesMax: 6,
 });
@@ -39,7 +37,9 @@ const tree1 = new Sprite({
   height: 120,
   imageSrc: "gameAssets/lamp.png",
 });
+
 const player = new Fighter({
+  context: context,
   position: {
     x: 0,
     y: 0,
@@ -52,11 +52,33 @@ const player = new Fighter({
     x: 0,
     y: 0,
   },
+  sprites: {
+    idle: {
+      imageSrc: "gameAssets/meowKnight/Idle.png",
+      framesMax: 6,
+    },
+    run: {
+      imageSrc: "gameAssets/meowKnight/Run.png",
+      framesMax: 6,
+    },
+    jump: {
+      imageSrc: "gameAssets/meowKnight/Jump.png",
+      framesMax: 11,
+    },
+    damage: {
+      imageSrc: "gameAssets/meowKnight/Take_Damage.png",
+      framesMax: 3,
+    },
+  },
+  imageSrc: "gameAssets/meowKnight/Idle.png",
+  framesMax: 8,
+  scale: 3.5,
 });
 
-player.draw();
+// player.draw();
 
 const enemy = new Fighter({
+  context: context,
   position: {
     x: 400,
     y: 100,
@@ -67,12 +89,14 @@ const enemy = new Fighter({
   },
   color: "green",
   offset: {
-    x: -50,
+    x: 0,
     y: 0,
   },
+  imageSrc: "gameAssets/meowKnight/Idle.png",
+  framesMax: 6,
 });
 
-enemy.draw();
+// enemy.draw();
 const keys = {
   a: {
     pressed: false,
@@ -148,7 +172,7 @@ function animate() {
   tree1.update();
   shop.update();
   player.update();
-  enemy.update();
+  // enemy.update();
 
   player.velocity.x = 0;
   enemy.velocity.x = 0;
