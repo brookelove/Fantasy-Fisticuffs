@@ -47,7 +47,8 @@ class AnimatedSprite {
       this.image.height * this.scale
     );
   }
-  animateFrame() {
+  update() {
+    this.draw();
     this.framesElapsed++;
     if (this.framesElapsed % this.framesHold === 0) {
       if (this.framesCurrent < this.framesMax - 1) {
@@ -56,10 +57,6 @@ class AnimatedSprite {
         this.framesCurrent = 0;
       }
     }
-  }
-  update() {
-    this.draw();
-    this.animateFrame();
   }
 }
 
@@ -73,7 +70,6 @@ class Fighter extends AnimatedSprite {
     scale = 1,
     framesMax = 1,
     context,
-    sprites,
   }) {
     super({
       position,
@@ -96,22 +92,14 @@ class Fighter extends AnimatedSprite {
       height: 50,
     };
     this.context = context;
-    this.framesCurrent = 0;
-    this.framesElapsed = 1;
-    this.framesHold = 5;
-    this.sprites = sprites;
+    this.framesCurrent = 8;
+    this.framesElapsed = 0;
+    this.framesHold = 10;
 
     this.image.onload = () => {
       this.width = this.image.width;
       this.height = this.image.height / this.framesMax;
     };
-
-    for (const sprite in sprites) {
-      sprites[sprite].image = new Image();
-      sprites[sprite].image.src = sprites[sprite].imageSrc;
-    }
-
-    console.log(this.sprites);
   }
   drawAnimated() {
     this.context.drawImage(
@@ -128,8 +116,15 @@ class Fighter extends AnimatedSprite {
   }
 
   update() {
+    this.framesElapsed++;
+    if (this.framesElapsed % this.framesHold === 0) {
+      if (this.framesCurrent < this.framesMax - 1) {
+        this.framesCurrent++;
+      } else {
+        this.framesCurrent = 0;
+      }
+    }
     this.drawAnimated();
-    this.animateFrame();
     this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
     this.attackBox.position.y = this.position.y;
     this.position.x += this.velocity.x;

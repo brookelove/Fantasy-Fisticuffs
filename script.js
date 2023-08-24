@@ -52,26 +52,9 @@ const player = new Fighter({
     x: 0,
     y: 0,
   },
-  sprites: {
-    idle: {
-      imageSrc: "gameAssets/meowKnight/Idle.png",
-      framesMax: 6,
-    },
-    run: {
-      imageSrc: "gameAssets/meowKnight/Run.png",
-      framesMax: 6,
-    },
-    jump: {
-      imageSrc: "gameAssets/meowKnight/Jump.png",
-      framesMax: 11,
-    },
-    damage: {
-      imageSrc: "gameAssets/meowKnight/Take_Damage.png",
-      framesMax: 3,
-    },
-  },
+  sprites: {},
   imageSrc: "gameAssets/meowKnight/Idle.png",
-  framesMax: 8,
+  framesMax: 6,
   scale: 3.5,
 });
 
