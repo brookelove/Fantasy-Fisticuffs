@@ -23,3 +23,5 @@ A fun game filled with magical creatures that battle.
 ![where we begin](./assets/Images/begin.png)
 
 ## Resources
+
+[Cat Figths](https://9e0.itch.io/cute-legends-cat-heroes)

@@ -16,6 +16,16 @@ const background = new Sprite({
   width: 1024,
   height: 576,
 });
+const tree1 = new Sprite({
+  context: context,
+  position: {
+    x: 700,
+    y: 140,
+  },
+  width: 400,
+  height: 400,
+  imageSrc: "gameAssets/tree.png",
+});
 const player = new Fighter({
   position: {
     x: 0,
@@ -122,6 +132,7 @@ function animate() {
   context.fillRect(0, 0, canvas.width, canvas.height); // removes the paint effect of the code
 
   background.update();
+  tree1.update();
   player.update();
   enemy.update();
 
