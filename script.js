@@ -46,19 +46,38 @@ const player = new Fighter({
   },
   velocity: {
     x: 0,
-    y: 10,
+    y: 0,
   },
   offset: {
     x: 0,
-    y: 0,
+    y: 157,
   },
-  sprites: {},
-  imageSrc: "gameAssets/meowKnight/Idle.png",
-  framesMax: 6,
-  scale: 3.5,
+  sprites: {
+    idle: {
+      imageSrc: "gameAssets/MartialHero/Sprites/Idle.png",
+      framesMax: 8,
+    },
+    run: {
+      imageSrc: "gameAssets/MartialHero/Sprites/Run.png",
+      framesMax: 8,
+    },
+    damage: {
+      imageSrc: "gameAssets/MartialHero/Sprites/Take_Hit-white-silhouette.png",
+      framesMax: 3,
+    },
+    jump: {
+      imageSrc: "gameAssets/MartialHero/Sprites/Jump.png",
+      framesMax: 2,
+    },
+    fall: {
+      imageSrc: "gameAssets/MartialHero/Sprites/Fall.png",
+      framesMax: 2,
+    },
+  },
+  imageSrc: "gameAssets/MartialHero/Sprites/Idle.png",
+  framesMax: 8,
+  scale: 2,
 });
-
-// player.draw();
 
 const enemy = new Fighter({
   context: context,
@@ -79,7 +98,6 @@ const enemy = new Fighter({
   framesMax: 6,
 });
 
-// enemy.draw();
 const keys = {
   a: {
     pressed: false,
@@ -159,13 +177,26 @@ function animate() {
 
   player.velocity.x = 0;
   enemy.velocity.x = 0;
-  //playme movement
+  // player.position.y += player.velocity.y;
+
+  //player movement
+
   if (keys.a.pressed && player.lastKey === "a") {
     player.velocity.x = -5;
+    player.switchSprite("run");
   } else if (keys.d.pressed && player.lastKey === "d") {
     player.velocity.x = 5;
-  } else if (keys.w.pressed && player.lastKey === "w") {
-    player.velocity.y = -20;
+    player.switchSprite("run");
+  } else {
+    player.switchSprite("idle");
+  }
+  if (player.velocity.y === 0) {
+    player.velocity.y += gravity;
+  } else if (player.velocity.y < 0) {
+    player.image = player.sprites.jump.image;
+    player.framesMax = player.sprites.jump.framesMax;
+  } else if (player.velocity.y > 0) {
+    player.switchSprite("fall");
   }
 
   //enemy movement
@@ -214,8 +245,9 @@ window.addEventListener("keydown", (event) => {
       player.lastKey = "a";
       break;
     case "w":
-      keys.w.pressed = true;
-      player.lastKey = "w";
+      // keys.w.pressed = true;
+      // player.lastKey = "w";
+      player.velocity.y = -15;
       break;
     case " ":
       player.isAttacking = true;
@@ -229,7 +261,7 @@ window.addEventListener("keydown", (event) => {
       enemy.lastKey = "ArrowLeft";
       break;
     case "ArrowUp":
-      keys.arrowUp.pressed = true;
+      enemy.velocity.y = -20;
       enemy.lastKey = "ArrowUp";
       break;
     case "ArrowDown":
@@ -245,10 +277,6 @@ window.addEventListener("keyup", (event) => {
       break;
     case "a":
       keys.a.pressed = false;
-      break;
-    case "w":
-      keys.w.pressed = false;
-      lastKey = "w";
       break;
   }
 
