@@ -73,6 +73,10 @@ const player = new Fighter({
       imageSrc: "gameAssets/MartialHero/Sprites/Fall.png",
       framesMax: 2,
     },
+    attack1: {
+      imageSrc: "gameAssets/MartialHero/Sprites/Attack1.png",
+      framesMax: 6,
+    },
   },
   imageSrc: "gameAssets/MartialHero/Sprites/Idle.png",
   framesMax: 8,
@@ -250,7 +254,7 @@ window.addEventListener("keydown", (event) => {
       player.velocity.y = -15;
       break;
     case " ":
-      player.isAttacking = true;
+      player.attack();
       break;
     case "ArrowRight":
       keys.arrowRight.pressed = true;
