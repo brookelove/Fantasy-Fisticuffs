@@ -71,6 +71,7 @@ class Fighter extends AnimatedSprite {
     framesMax = 1,
     context,
     sprites,
+    attackBox = { offset: {}, width: undefined, height: undefined },
   }) {
     super({
       position,
@@ -88,9 +89,9 @@ class Fighter extends AnimatedSprite {
         x: this.position.x,
         y: this.position.y,
       },
-      offset: offset,
-      width: 100,
-      height: 50,
+      offset: attackBox.offset,
+      width: attackBox.width,
+      height: attackBox.height,
     };
     this.context = context;
     this.framesCurrent = 0;
@@ -136,8 +137,14 @@ class Fighter extends AnimatedSprite {
     this.draw();
     this.animateFrames();
     this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
-    this.attackBox.position.y = this.position.y;
+    this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
+    this.context.fillRect(
+      this.attackBox.position.x,
+      this.attackBox.position.y,
+      this.attackBox.width,
+      this.attackBox.height
+    );
     this.position.x += this.velocity.x;
 
     if (
@@ -152,11 +159,12 @@ class Fighter extends AnimatedSprite {
   }
 
   attack() {
+    console.log("attack");
     this.switchSprite("attack1");
     this.isAttacking = true;
-    setTimeout(() => {
-      this.isAttacking = false;
-    }, 100);
+    // setTimeout(() => {
+    //   this.isAttacking = false;
+    // }, 100);
   }
   switchSprite(sprite) {
     if (

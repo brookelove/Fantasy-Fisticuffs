@@ -78,6 +78,14 @@ const player = new Fighter({
       framesMax: 6,
     },
   },
+  attackBox: {
+    offset: {
+      x: 250,
+      y: 150,
+    },
+    width: 125,
+    height: 50,
+  },
   imageSrc: "gameAssets/MartialHero/Sprites/Idle.png",
   framesMax: 8,
   scale: 2,
@@ -108,7 +116,7 @@ const enemy = new Fighter({
       framesMax: 8,
     },
     damage: {
-      imageSrc: "gameAssets/MartialHero2/Sprites/Take_Hit-white-silhouette.png",
+      imageSrc: "gameAssets/MartialHero2/Sprites/Take_Hit.png",
       framesMax: 3,
     },
     jump: {
@@ -123,6 +131,14 @@ const enemy = new Fighter({
       imageSrc: "gameAssets/MartialHero2/Sprites/Attack1.png",
       framesMax: 4,
     },
+  },
+  attackBox: {
+    offset: {
+      x: 30,
+      y: 150,
+    },
+    width: 90,
+    height: 50,
   },
   imageSrc: "gameAssets/MartialHero2/Sprites/Idle.png",
   framesMax: 4,
@@ -253,19 +269,33 @@ function animate() {
   }
 
   //collision detection
+
   if (
     rectangularCollision({ rect1: player, rect2: enemy }) &&
-    player.isAttacking
+    player.isAttacking &&
+    player.framesCurrent >= 4
   ) {
+    console.log("collision check");
     player.isAttacking = false;
     enemy.health -= 20;
     document.getElementById("enemyHealth").style.width = enemy.health + "%";
     console.log("player HIT");
+    console.log(player.isAttacking);
+  }
+
+  if (player.isAttacking && player.framesCurrent === 4) {
+    player.isAttacking = false;
+    console.log(player.isAttacking);
   }
   if (
     rectangularCollision({ rect1: enemy, rect2: player }) &&
-    enemy.isAttacking
+    enemy.isAttacking &&
+    enemy.framesCurrent >= 4
   ) {
+    console.log("Enemy attacking. Enemy position:", enemy.position);
+    console.log("Player position:", player.position);
+    console.log("Enemy attack box:", enemy.attackBox);
+
     enemy.isAttacking = false;
     player.health -= 20;
     document.getElementById("playerHealth").style.width = player.health + "%";
@@ -295,6 +325,7 @@ window.addEventListener("keydown", (event) => {
       break;
     case " ":
       player.attack();
+      console.log(player.isAttacking);
       break;
     case "ArrowRight":
       keys.arrowRight.pressed = true;
