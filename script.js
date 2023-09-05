@@ -50,7 +50,7 @@ const player = new Fighter({
   },
   offset: {
     x: 0,
-    y: 157,
+    y: 187,
   },
   sprites: {
     idle: {
@@ -96,10 +96,37 @@ const enemy = new Fighter({
   color: "green",
   offset: {
     x: 0,
-    y: 0,
+    y: 200,
   },
-  imageSrc: "gameAssets/meowKnight/Idle.png",
-  framesMax: 6,
+  sprites: {
+    idle: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Idle.png",
+      framesMax: 4,
+    },
+    run: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Run.png",
+      framesMax: 8,
+    },
+    damage: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Take_Hit-white-silhouette.png",
+      framesMax: 3,
+    },
+    jump: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Jump.png",
+      framesMax: 2,
+    },
+    fall: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Fall.png",
+      framesMax: 2,
+    },
+    attack1: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Attack1.png",
+      framesMax: 4,
+    },
+  },
+  imageSrc: "gameAssets/MartialHero2/Sprites/Idle.png",
+  framesMax: 4,
+  scale: 2,
 });
 
 const keys = {
@@ -177,7 +204,7 @@ function animate() {
   tree1.update();
   shop.update();
   player.update();
-  // enemy.update();
+  enemy.update();
 
   player.velocity.x = 0;
   enemy.velocity.x = 0;
@@ -206,10 +233,23 @@ function animate() {
   //enemy movement
   if (keys.arrowLeft.pressed && enemy.lastKey === "ArrowLeft") {
     enemy.velocity.x = -5;
+    enemy.switchSprite("run");
   } else if (keys.arrowRight.pressed && enemy.lastKey === "ArrowRight") {
     enemy.velocity.x = 5;
+    enemy.switchSprite("run");
   } else if (keys.arrowUp.pressed && enemy.lastKey === "ArrowUp") {
     enemy.velocity.y = -20;
+  } else {
+    enemy.switchSprite("idle");
+  }
+
+  if (enemy.velocity.y === 0) {
+    enemy.velocity.y += gravity;
+  } else if (enemy.velocity.y < 0) {
+    enemy.image = enemy.sprites.jump.image;
+    enemy.framesMax = enemy.sprites.jump.framesMax;
+  } else if (enemy.velocity.y > 0) {
+    enemy.switchSprite("fall");
   }
 
   //collision detection
@@ -269,8 +309,7 @@ window.addEventListener("keydown", (event) => {
       enemy.lastKey = "ArrowUp";
       break;
     case "ArrowDown":
-      keys.arrowDown.pressed = false;
-      enemy.isAttacking = true;
+      enemy.attack();
       break;
   }
 });
