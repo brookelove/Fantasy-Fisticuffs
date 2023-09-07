@@ -80,10 +80,10 @@ const player = new Fighter({
   },
   attackBox: {
     offset: {
-      x: 250,
-      y: 150,
+      x: 0,
+      y: 0,
     },
-    width: 125,
+    width: 100,
     height: 50,
   },
   imageSrc: "gameAssets/MartialHero/Sprites/Idle.png",
@@ -104,7 +104,7 @@ const enemy = new Fighter({
   color: "green",
   offset: {
     x: 0,
-    y: 200,
+    y: 187,
   },
   sprites: {
     idle: {
@@ -134,10 +134,10 @@ const enemy = new Fighter({
   },
   attackBox: {
     offset: {
-      x: 30,
-      y: 150,
+      x: 0,
+      y: 0,
     },
-    width: 90,
+    width: 100,
     height: 50,
   },
   imageSrc: "gameAssets/MartialHero2/Sprites/Idle.png",
@@ -269,39 +269,67 @@ function animate() {
   }
 
   //collision detection
-
   if (
+    player.position.x < enemy.position.x &&
     rectangularCollision({ rect1: player, rect2: enemy }) &&
-    player.isAttacking &&
-    player.framesCurrent >= 4
+    player.isAttacking
   ) {
-    console.log("collision check");
     player.isAttacking = false;
     enemy.health -= 20;
     document.getElementById("enemyHealth").style.width = enemy.health + "%";
     console.log("player HIT");
-    console.log(player.isAttacking);
+    console.log(player.framesCurrent);
   }
+  // if (
+  //   rectangularCollision({ rect1: enemy, rect2: player }) &&
+  //   enemy.position.x > player.position.x &&
+  //   enemy.isAttacking
+  // ) {
+  //   player.health -= 20;
+  //   document.getElementById("playerHealth").style.width = player.health + "%";
+  //   console.log("enemy HIT");
+  //   console.log(enemy.framesCurrent);
+  //   enemy.isAttacking = false; // Reset enemy's attack state
+  // }
+  // Inside your collision detection logic for enemy's attack
 
-  if (player.isAttacking && player.framesCurrent === 4) {
-    player.isAttacking = false;
-    console.log(player.isAttacking);
+  if (enemy.isAttacking) {
+    console.log("Enemy is attacking"); // Debug statement
+
+    // Debug statements to check positions
+    console.log("Enemy position.x:", enemy.position.x);
+    console.log("Player position.x:", player.position.x);
+    console.log("Enemy attackBox:", enemy.attackBox);
+    console.log("Player attackBox:", player.attackBox);
+    console.log("Enemy attackBox.offset:", enemy.attackBox.offset);
+    console.log("Player attackBox.offset:", player.attackBox.offset);
+
+    // Debug statement for collision check
+    console.log(
+      "Collision check result:",
+      rectangularCollision({ rect1: enemy, rect2: player })
+    );
+
+    // Calculate the direction the enemy is facing
+    const enemyIsFacingRight = enemy.position.x > player.position.x;
+
+    // Check if there is a collision and the enemy is facing the player
+    if (
+      rectangularCollision({ rect1: enemy, rect2: player }) &&
+      enemyIsFacingRight
+    ) {
+      player.health -= 20;
+      document.getElementById("playerHealth").style.width = player.health + "%";
+      console.log("enemy HIT");
+      console.log(enemy.framesCurrent);
+      enemy.isAttacking = false; // Reset enemy's attack state
+    }
   }
-  if (
-    rectangularCollision({ rect1: enemy, rect2: player }) &&
-    enemy.isAttacking &&
-    enemy.framesCurrent >= 4
-  ) {
-    console.log("Enemy attacking. Enemy position:", enemy.position);
-    console.log("Player position:", player.position);
-    console.log("Enemy attack box:", enemy.attackBox);
+  // console.log("Enemy width:", enemy.width);
+  // console.log("Enemy height:", enemy.height);
 
-    enemy.isAttacking = false;
-    player.health -= 20;
-    document.getElementById("playerHealth").style.width = player.health + "%";
-    console.log("enemy HIT");
-  }
-
+  // console.log("Player width:", player.width);
+  // console.log("Player height:", player.height);
   if (enemy.health <= 0 || player.health <= 0) {
     whoWins({ player, enemy, timerEl });
   }

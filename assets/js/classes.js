@@ -65,7 +65,7 @@ class Fighter extends AnimatedSprite {
     position,
     velocity,
     color = "red",
-    offset,
+    offset = { x: 0, y: 0 },
     imageSrc,
     scale = 1,
     framesMax = 1,
@@ -93,6 +93,7 @@ class Fighter extends AnimatedSprite {
       width: attackBox.width,
       height: attackBox.height,
     };
+    offset;
     this.context = context;
     this.framesCurrent = 0;
     this.framesElapsed = 0;
@@ -136,10 +137,11 @@ class Fighter extends AnimatedSprite {
   update() {
     this.draw();
     this.animateFrames();
+
     this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
-    this.context.fillRect(
+    context.fillRect(
       this.attackBox.position.x,
       this.attackBox.position.y,
       this.attackBox.width,
@@ -159,12 +161,8 @@ class Fighter extends AnimatedSprite {
   }
 
   attack() {
-    console.log("attack");
     this.switchSprite("attack1");
     this.isAttacking = true;
-    // setTimeout(() => {
-    //   this.isAttacking = false;
-    // }, 100);
   }
   switchSprite(sprite) {
     if (
