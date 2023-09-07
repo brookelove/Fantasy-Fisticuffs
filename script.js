@@ -3,43 +3,29 @@ const context = canvas.getContext("2d");
 
 canvas.width = 1024;
 canvas.height = 576;
-// creates the black background for the game
-context.fillRect(0, 0, canvas.width, canvas.height);
+
 const gravity = 0.7;
-const background = new Sprite({
-  context: context,
+console.log("hello world");
+context.fillRect(0, 0, canvas.width, canvas.height);
+
+const background = new Sprite2({
   position: {
     x: 0,
     y: 0,
   },
-  imageSrc: "gameAssets/image.png",
-  width: 1024,
-  height: 576,
+  imgSrc: "gameAssets/background.png",
 });
-const shop = new AnimatedSprite({
-  context: context,
+const shop = new Sprite2({
   position: {
-    x: 700,
-    y: 170,
+    x: 650,
+    y: 185,
   },
-  imageSrc: "gameAssets/shop.png",
-  scale: 2.5,
+  imgSrc: "gameAssets/shop.png",
+  scale: 2.3,
   framesMax: 6,
 });
 
-const tree1 = new Sprite({
-  context: context,
-  position: {
-    x: 250,
-    y: 370,
-  },
-  width: 60,
-  height: 120,
-  imageSrc: "gameAssets/lamp.png",
-});
-
-const player = new Fighter({
-  context: context,
+const player = new Fighter2({
   position: {
     x: 0,
     y: 0,
@@ -50,7 +36,14 @@ const player = new Fighter({
   },
   offset: {
     x: 0,
-    y: 187,
+    y: 0,
+  },
+  imgSrc: "gameAssets/MartialHero/Sprites/Idle.png",
+  framesMax: 8,
+  scale: 2,
+  offset: {
+    x: 130,
+    y: 95,
   },
   sprites: {
     idle: {
@@ -63,7 +56,7 @@ const player = new Fighter({
     },
     damage: {
       imageSrc: "gameAssets/MartialHero/Sprites/Take_Hit-white-silhouette.png",
-      framesMax: 3,
+      framesMax: 4,
     },
     jump: {
       imageSrc: "gameAssets/MartialHero/Sprites/Jump.png",
@@ -77,22 +70,22 @@ const player = new Fighter({
       imageSrc: "gameAssets/MartialHero/Sprites/Attack1.png",
       framesMax: 6,
     },
+    death: {
+      imageSrc: "gameAssets/MartialHero/Sprites/Death.png",
+      framesMax: 6,
+    },
   },
   attackBox: {
     offset: {
-      x: 0,
-      y: 0,
+      x: 110,
+      y: 60,
     },
-    width: 100,
+    width: 140,
     height: 50,
   },
-  imageSrc: "gameAssets/MartialHero/Sprites/Idle.png",
-  framesMax: 8,
-  scale: 2,
 });
-
-const enemy = new Fighter({
-  context: context,
+player.draw();
+const enemy = new Fighter2({
   position: {
     x: 400,
     y: 100,
@@ -101,10 +94,17 @@ const enemy = new Fighter({
     x: 0,
     y: 0,
   },
-  color: "green",
+  color: "blue",
   offset: {
-    x: 0,
-    y: 187,
+    x: -50,
+    y: 0,
+  },
+  imgSrc: "gameAssets/MartialHero2/Sprites/Idle.png",
+  framesMax: 4,
+  scale: 2,
+  offset: {
+    x: 130,
+    y: 106,
   },
   sprites: {
     idle: {
@@ -131,19 +131,21 @@ const enemy = new Fighter({
       imageSrc: "gameAssets/MartialHero2/Sprites/Attack1.png",
       framesMax: 4,
     },
+    death: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Death.png",
+      framesMax: 7,
+    },
   },
   attackBox: {
     offset: {
-      x: 0,
-      y: 0,
+      x: -95,
+      y: 60,
     },
-    width: 100,
+    width: 120,
     height: 50,
   },
-  imageSrc: "gameAssets/MartialHero2/Sprites/Idle.png",
-  framesMax: 4,
-  scale: 2,
 });
+enemy.draw();
 
 const keys = {
   a: {
@@ -168,85 +170,44 @@ const keys = {
     pressed: false,
   },
 };
-
 let lastKey;
-function rectangularCollision({ rect1, rect2 }) {
-  return (
-    rect1.attackBox.position.x + rect1.attackBox.width >= rect2.position.x &&
-    rect1.attackBox.position.x <= rect2.position.x + rect2.width &&
-    rect1.attackBox.position.y + rect1.attackBox.height >= rect2.position.y &&
-    rect1.attackBox.position.y <= rect2.position.y + rect2.height
-  );
-}
-let gameOver = false;
 
-function whoWins({ player, enemy, timerEl }) {
-  if (gameOver) {
-    return;
-  }
-  clearTimeout(timerEl);
-  if (player.health === enemy.health) {
-    console.log("tie");
-  } else if (player.health > enemy.health) {
-    console.log("player 1 wins");
-  } else if (player.health < enemy.health) {
-    console.log("player 2 wins");
-  }
-  gameOver = true;
-}
-
-let timeLeft = 60;
-let timerEl;
-function countdown() {
-  if (timeLeft > 0) {
-    // clearTimeout(timerEl);
-    timerEl = setTimeout(countdown, 1000);
-    timeLeft--;
-    document.getElementById("timer").innerHTML = timeLeft;
-  }
-  if (timeLeft === 0) {
-    whoWins({ player, enemy, timerEl });
-  }
-}
 countdown();
-function animate() {
-  //the ability to animate the objects frame by frame
-  window.requestAnimationFrame(animate);
-  //   context.clearRect(0, 0, canvas.width, canvas.height); // removes the paint effect of the code
-  context.fillStyle = "black";
-  context.fillRect(0, 0, canvas.width, canvas.height); // removes the paint effect of the code
 
+function animate() {
+  window.requestAnimationFrame(animate); //creates frame by
+  //frame animateion
+  context.fillStyle = "black";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  //setting up background
   background.update();
-  tree1.update();
   shop.update();
+
+  context.fillStyle = "rgba(255,255,255, 0.15)";
+  context.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
   enemy.update();
 
   player.velocity.x = 0;
   enemy.velocity.x = 0;
-  // player.position.y += player.velocity.y;
 
   //player movement
-
+  player.switchSprite("idle");
   if (keys.a.pressed && player.lastKey === "a") {
     player.velocity.x = -5;
     player.switchSprite("run");
   } else if (keys.d.pressed && player.lastKey === "d") {
     player.velocity.x = 5;
     player.switchSprite("run");
-  } else {
-    player.switchSprite("idle");
   }
-  if (player.velocity.y === 0) {
-    player.velocity.y += gravity;
-  } else if (player.velocity.y < 0) {
-    player.image = player.sprites.jump.image;
-    player.framesMax = player.sprites.jump.framesMax;
+
+  if (player.velocity.y < 0) {
+    player.switchSprite("jump");
   } else if (player.velocity.y > 0) {
     player.switchSprite("fall");
   }
 
-  //enemy movement
   if (keys.arrowLeft.pressed && enemy.lastKey === "ArrowLeft") {
     enemy.velocity.x = -5;
     enemy.switchSprite("run");
@@ -254,122 +215,104 @@ function animate() {
     enemy.velocity.x = 5;
     enemy.switchSprite("run");
   } else if (keys.arrowUp.pressed && enemy.lastKey === "ArrowUp") {
-    enemy.velocity.y = -20;
+    enemy.velocity.y = -10;
   } else {
     enemy.switchSprite("idle");
   }
 
-  if (enemy.velocity.y === 0) {
-    enemy.velocity.y += gravity;
-  } else if (enemy.velocity.y < 0) {
-    enemy.image = enemy.sprites.jump.image;
-    enemy.framesMax = enemy.sprites.jump.framesMax;
+  if (enemy.velocity.y < 0) {
+    // enemy.image = enemy.sprites.jump.image;
+    // enemy.framesMax = enemy.sprites.jump.framesMax;
+    enemy.switchSprite("jump");
   } else if (enemy.velocity.y > 0) {
     enemy.switchSprite("fall");
   }
 
-  //collision detection
+  // detect for collision && enemy gets hit
+
+  //player collision
   if (
-    player.position.x < enemy.position.x &&
-    rectangularCollision({ rect1: player, rect2: enemy }) &&
-    player.isAttacking
+    collision({ rect1: player, rect2: enemy }) &&
+    player.isAttacking &&
+    player.framesCurrent === 4
   ) {
+    console.log("inside of collision damage");
+    enemy.damage();
     player.isAttacking = false;
-    enemy.health -= 20;
-    document.getElementById("enemyHealth").style.width = enemy.health + "%";
-    console.log("player HIT");
-    console.log(player.framesCurrent);
+
+    // animate the enemy bar
+    gsap.to("#enemyHealth", {
+      width: enemy.health + "%",
+    });
   }
-  // if (
-  //   rectangularCollision({ rect1: enemy, rect2: player }) &&
-  //   enemy.position.x > player.position.x &&
-  //   enemy.isAttacking
-  // ) {
-  //   player.health -= 20;
-  //   document.getElementById("playerHealth").style.width = player.health + "%";
-  //   console.log("enemy HIT");
-  //   console.log(enemy.framesCurrent);
-  //   enemy.isAttacking = false; // Reset enemy's attack state
-  // }
-  // Inside your collision detection logic for enemy's attack
 
-  if (enemy.isAttacking) {
-    console.log("Enemy is attacking"); // Debug statement
-
-    // Debug statements to check positions
-    console.log("Enemy position.x:", enemy.position.x);
-    console.log("Player position.x:", player.position.x);
-    console.log("Enemy attackBox:", enemy.attackBox);
-    console.log("Player attackBox:", player.attackBox);
-    console.log("Enemy attackBox.offset:", enemy.attackBox.offset);
-    console.log("Player attackBox.offset:", player.attackBox.offset);
-
-    // Debug statement for collision check
-    console.log(
-      "Collision check result:",
-      rectangularCollision({ rect1: enemy, rect2: player })
-    );
-
-    // Calculate the direction the enemy is facing
-    const enemyIsFacingRight = enemy.position.x > player.position.x;
-
-    // Check if there is a collision and the enemy is facing the player
-    if (
-      rectangularCollision({ rect1: enemy, rect2: player }) &&
-      enemyIsFacingRight
-    ) {
-      player.health -= 20;
-      document.getElementById("playerHealth").style.width = player.health + "%";
-      console.log("enemy HIT");
-      console.log(enemy.framesCurrent);
-      enemy.isAttacking = false; // Reset enemy's attack state
-    }
+  //if player misses
+  if (player.isAttacking && player.framesCurrent === 4) {
+    player.isAttacking = false;
   }
-  // console.log("Enemy width:", enemy.width);
-  // console.log("Enemy height:", enemy.height);
 
-  // console.log("Player width:", player.width);
-  // console.log("Player height:", player.height);
+  //enemy collision
+  if (
+    collision({ rect1: enemy, rect2: player }) &&
+    enemy.isAttacking &&
+    enemy.framesCurrent === 2
+  ) {
+    player.damage();
+    gsap.to("#playerHealth", {
+      width: player.health + "%",
+    });
+    enemy.isAttacking = false;
+  }
+
+  //if enemy misses
+  if (enemy.isAttacking && enemy.framesCurrent === 2) {
+    enemy.isAttacking = false;
+  }
+
   if (enemy.health <= 0 || player.health <= 0) {
     whoWins({ player, enemy, timerEl });
   }
 }
 animate();
-
 window.addEventListener("keydown", (event) => {
-  switch (event.key) {
-    case "d":
-      keys.d.pressed = true;
-      player.lastKey = "d";
-      break;
-    case "a":
-      keys.a.pressed = true;
-      player.lastKey = "a";
-      break;
-    case "w":
-      // keys.w.pressed = true;
-      // player.lastKey = "w";
-      player.velocity.y = -15;
-      break;
-    case " ":
-      player.attack();
-      console.log(player.isAttacking);
-      break;
-    case "ArrowRight":
-      keys.arrowRight.pressed = true;
-      enemy.lastKey = "ArrowRight";
-      break;
-    case "ArrowLeft":
-      keys.arrowLeft.pressed = true;
-      enemy.lastKey = "ArrowLeft";
-      break;
-    case "ArrowUp":
-      enemy.velocity.y = -20;
-      enemy.lastKey = "ArrowUp";
-      break;
-    case "ArrowDown":
-      enemy.attack();
-      break;
+  if (!player.dead) {
+    switch (event.key) {
+      case "d":
+        keys.d.pressed = true;
+        player.lastKey = "d";
+        break;
+      case "a":
+        keys.a.pressed = true;
+        player.lastKey = "a";
+        break;
+      case "w":
+        player.velocity.y = -20;
+        break;
+      case " ":
+        player.attack();
+        console.log(player.isAttacking);
+        break;
+    }
+  }
+  if (!enemy.dead) {
+    switch (event.key) {
+      case "ArrowRight":
+        keys.arrowRight.pressed = true;
+        enemy.lastKey = "ArrowRight";
+        break;
+      case "ArrowLeft":
+        keys.arrowLeft.pressed = true;
+        enemy.lastKey = "ArrowLeft";
+        break;
+      case "ArrowUp":
+        enemy.velocity.y = -20;
+        enemy.lastKey = "ArrowUp";
+        break;
+      case "ArrowDown":
+        console.log("hitting player");
+        enemy.attack();
+        break;
+    }
   }
 });
 window.addEventListener("keyup", (event) => {
@@ -380,21 +323,20 @@ window.addEventListener("keyup", (event) => {
     case "a":
       keys.a.pressed = false;
       break;
+    case "w":
+      keys.a.pressed = false;
+      break;
   }
 
   //   enemy keys
   switch (event.key) {
     case "ArrowRight":
       keys.arrowRight.pressed = false;
-      lastKey = "ArrowRight";
+      enemy.lastKey = "ArrowRight";
       break;
     case "ArrowLeft":
       keys.arrowLeft.pressed = false;
       lastKey = "ArrowLeft";
-      break;
-    case "ArrowUp":
-      keys.arrowUp.pressed = false;
-      lastKey = "ArrowUp";
       break;
   }
 });

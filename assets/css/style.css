@@ -1,6 +1,24 @@
+@font-face {
+    font-family:"retroFont" ;
+    src: url("../../gameAssets/Fonts/SummerPixel22Regular-jE0W7.ttf");
+}
+body{
+    background-color: #e5e7eb;
+    font-family: "retroFont";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 main {
     position: relative;
     display: inline-block;
+}
+canvas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 .healthbar{
     position:absolute;
@@ -11,15 +29,17 @@ main {
 }
 
 .healthbar .playerHealth,.healthbar .enemyHealth{
-    background-color: yellow;
+    background-color: red;
+    background-image: "./gameAssets/shop.png";
     width: 100%;
     height: 30px;
     flex-grow: 1;
+
 }
 .enemy, .player {
     position: relative;
-    height: 30px;
     width: 100%;
+    border: 4px solid whitesmoke;
 }
 .player {
     display: flex;
@@ -27,28 +47,35 @@ main {
 }
 .enemy div {
     position: absolute;
-    background: blue;
+    background: #818cf8;
     top:0;
     right:0;
     bottom:0;
-    left:0
+    left:0;
 }
 .player div{
     position: absolute;
-    background: blue;
+    background: #818cf8;
     top:0;
     right:0;
     bottom:0;
     width: 100%;
+
 }
 .timer {
-    background-color: red;
     height: 100px;
     width: 100px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    left: 45.2%;
+    top:-2%;
+}
+.signImg {
+    width: 10%;
+    /* left: 45% */
 }
 #displayRes {
     position: absolute;
@@ -60,7 +87,6 @@ main {
     bottom: 0;
     left: 0;
     display: none;
-    /* display: flex; */
 }
 
 
