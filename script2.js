@@ -56,7 +56,7 @@ const player = new Fighter2({
     },
     damage: {
       imageSrc: "gameAssets/MartialHero/Sprites/Take_Hit-white-silhouette.png",
-      framesMax: 3,
+      framesMax: 4,
     },
     jump: {
       imageSrc: "gameAssets/MartialHero/Sprites/Jump.png",
@@ -70,6 +70,14 @@ const player = new Fighter2({
       imageSrc: "gameAssets/MartialHero/Sprites/Attack1.png",
       framesMax: 6,
     },
+  },
+  attackBox: {
+    offset: {
+      x: 110,
+      y: 60,
+    },
+    width: 140,
+    height: 50,
   },
 });
 player.draw();
@@ -87,8 +95,47 @@ const enemy = new Fighter2({
     x: -50,
     y: 0,
   },
-  // imageSrc: "gameAssets/MartialHero2/Sprites/Idle.png",
-  // framesMax: 4,
+  imgSrc: "gameAssets/MartialHero2/Sprites/Idle.png",
+  framesMax: 4,
+  scale: 2,
+  offset: {
+    x: 130,
+    y: 106,
+  },
+  sprites: {
+    idle: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Idle.png",
+      framesMax: 4,
+    },
+    run: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Run.png",
+      framesMax: 8,
+    },
+    damage: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Take_Hit.png",
+      framesMax: 3,
+    },
+    jump: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Jump.png",
+      framesMax: 2,
+    },
+    fall: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Fall.png",
+      framesMax: 2,
+    },
+    attack1: {
+      imageSrc: "gameAssets/MartialHero2/Sprites/Attack1.png",
+      framesMax: 4,
+    },
+  },
+  attackBox: {
+    offset: {
+      x: -95,
+      y: 60,
+    },
+    width: 120,
+    height: 50,
+  },
 });
 enemy.draw();
 
@@ -124,13 +171,16 @@ function animate() {
   //frame animateion
   context.fillStyle = "black";
   context.fillRect(0, 0, canvas.width, canvas.height);
+
+  //setting up background
   background.update();
   shop.update();
   player.update();
-  // enemy.update()d;
+  enemy.update();
 
   player.velocity.x = 0;
   enemy.velocity.x = 0;
+
   //player movement
   // player.image = player.sprites.idle.image;
   player.switchSprite("idle");
@@ -149,38 +199,67 @@ function animate() {
     // player.image = player.sprites.jump.image;
     // player.framesMax = player.sprites.jump.framesMax;
     player.switchSprite("jump");
+  } else if (player.velocity.y > 0) {
+    player.switchSprite("fall");
   }
-  // else if (player.velocity.y > 0) {
-  //   player.switchSprite("fall");
-  // }
 
   if (keys.arrowLeft.pressed && enemy.lastKey === "ArrowLeft") {
     enemy.velocity.x = -5;
-    // enemy.switchSprite("run");
+    enemy.switchSprite("run");
   } else if (keys.arrowRight.pressed && enemy.lastKey === "ArrowRight") {
     enemy.velocity.x = 5;
-    // enemy.switchSprite("run");
+    enemy.switchSprite("run");
   } else if (keys.arrowUp.pressed && enemy.lastKey === "ArrowUp") {
     enemy.velocity.y = -10;
   } else {
-    // enemy.switchSprite("idle");
+    enemy.switchSprite("idle");
   }
 
-  // detect for collision
+  if (enemy.velocity.y < 0) {
+    // enemy.image = enemy.sprites.jump.image;
+    // enemy.framesMax = enemy.sprites.jump.framesMax;
+    enemy.switchSprite("jump");
+  } else if (enemy.velocity.y > 0) {
+    enemy.switchSprite("fall");
+  }
+
+  // detect for collision && enemy gets hit
 
   //player collision
-  if (collision({ rect1: player, rect2: enemy }) && player.isAttacking) {
+  if (
+    collision({ rect1: player, rect2: enemy }) &&
+    player.isAttacking &&
+    player.framesCurrent === 4
+  ) {
+    enemy.damage();
     player.isAttacking = false;
-    enemy.health -= 20;
+    // enemy.health -= 20;
     document.getElementById("enemyHealth").style.width = enemy.health + "%";
     // console.log("player HIT");
   }
-  //player collision
-  if (collision({ rect1: enemy, rect2: player }) && enemy.isAttacking) {
-    player.health -= 20;
+
+  //if player misses
+  if (player.isAttacking && player.framesCurrent === 4) {
+    player.isAttacking = false;
+  }
+
+  //enemy collision
+  if (
+    collision({ rect1: enemy, rect2: player }) &&
+    enemy.isAttacking &&
+    enemy.framesCurrent === 2
+  ) {
+    // player.health -= 20;
+    player.damage(); //player gets hit
     document.getElementById("playerHealth").style.width = player.health + "%";
     enemy.isAttacking = false;
   }
+
+  //if enemy misses
+  if (enemy.isAttacking && enemy.framesCurrent === 2) {
+    enemy.isAttacking = false;
+  }
+
   if (enemy.health <= 0 || player.health <= 0) {
     whoWins({ player, enemy, timerEl });
   }
@@ -218,6 +297,7 @@ window.addEventListener("keydown", (event) => {
       enemy.lastKey = "ArrowUp";
       break;
     case "ArrowDown":
+      console.log("hitting player");
       enemy.attack();
       break;
   }
