@@ -131,9 +131,6 @@ class Fighter2 extends Sprite2 {
   attack() {
     this.switchSprite("attack1");
     this.isAttacking = true;
-    // setTimeout(() => {
-    //   this.isAttacking = false;
-    // }, 1000);
   }
 
   damage() {
