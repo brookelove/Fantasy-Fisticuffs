@@ -49,13 +49,13 @@ let leftTeam = [
     },
   },
   {
-    character_name: "FantasyWarrior",
+    character_name: "Hero Knight",
     imgSrc: "gameAssets/HeroKnight/Sprites/Idle.png",
     framesMax: 11,
     scale: 2,
     offset: {
       x: 130,
-      y: 95,
+      y: 78,
     },
     sprites: {
       idle: {
@@ -87,7 +87,6 @@ let leftTeam = [
         framesMax: 11,
       },
     },
-    // double check the attacj box measurements
     attackBox: {
       offset: {
         x: 110,
@@ -98,12 +97,12 @@ let leftTeam = [
     },
   },
   {
-    character_name: "FantasyWarrior",
+    character_name: "Fantasy Warrior",
     imgSrc: "gameAssets/FantasyWarrior/Sprites/Idle.png",
     framesMax: 10,
-    scale: 2,
+    scale: 2.5,
     offset: {
-      x: 130,
+      x: 110,
       y: 95,
     },
     sprites: {
@@ -150,7 +149,7 @@ let leftTeam = [
     character_name: "Huntress",
     imgSrc: "gameAssets/Huntress/Sprites/Idle.png",
     framesMax: 8,
-    scale: 2,
+    scale: 3,
     offset: {
       x: 130,
       y: 95,
@@ -247,40 +246,40 @@ let rightTeam = [
   },
   {
     character_name: "Wizard",
-    imgSrc: "gameAssets/Wizard/Sprites/Idle.png",
+    imgSrc: "gameAssets/Wizard/Idle.png",
     framesMax: 6,
-    scale: 2,
+    scale: 1.3,
     offset: {
-      x: 130,
-      y: 106,
+      x: 50,
+      y: 33,
     },
     sprites: {
       idle: {
-        imageSrc: "gameAssets/Wizard/Sprites/Idle.png",
+        imageSrc: "gameAssets/Wizard/Idle.png",
         framesMax: 6,
       },
       run: {
-        imageSrc: "gameAssets/Wizard/Sprites/Run.png",
+        imageSrc: "gameAssets/Wizard/Run.png",
         framesMax: 8,
       },
       damage: {
-        imageSrc: "gameAssets/Wizard/Sprites/Hit.png",
+        imageSrc: "gameAssets/Wizard/Hit.png",
         framesMax: 4,
       },
       jump: {
-        imageSrc: "gameAssets/Wizard/Sprites/Jump.png",
+        imageSrc: "gameAssets/Wizard/Jump.png",
         framesMax: 2,
       },
       fall: {
-        imageSrc: "gameAssets/Wizard/Sprites/Fall.png",
+        imageSrc: "gameAssets/Wizard/Fall.png",
         framesMax: 2,
       },
       attack1: {
-        imageSrc: "gameAssets/Wizard/Sprites/Attack1.png",
+        imageSrc: "gameAssets/Wizard/Attack1.png",
         framesMax: 8,
       },
       death: {
-        imageSrc: "gameAssets/Wizard/Sprites/Death.png",
+        imageSrc: "gameAssets/Wizard/Death.png",
         framesMax: 7,
       },
     },
@@ -300,7 +299,7 @@ let rightTeam = [
     scale: 2,
     offset: {
       x: 130,
-      y: 106,
+      y: 186,
     },
     sprites: {
       idle: {
@@ -312,7 +311,7 @@ let rightTeam = [
         framesMax: 8,
       },
       damage: {
-        imageSrc: "gameAssets/EvilWizard2/Sprites/Take_Hit.png",
+        imageSrc: "gameAssets/EvilWizard2/Sprites/TakeHit.png",
         framesMax: 3,
       },
       jump: {
@@ -324,7 +323,7 @@ let rightTeam = [
         framesMax: 2,
       },
       attack1: {
-        imageSrc: "gameAssets/EvilWizard/Sprites/Attack1.png",
+        imageSrc: "gameAssets/EvilWizard2/Sprites/Attack1.png",
         framesMax: 8,
       },
       death: {
@@ -343,40 +342,40 @@ let rightTeam = [
   },
   {
     character_name: "MedievalWarrior",
-    imgSrc: "gameAssets/MedievalWarrior/Sprites/Idle.png",
+    imgSrc: "gameAssets/Medieval/Idle.png",
     framesMax: 6,
-    scale: 2,
+    scale: 1.5,
     offset: {
-      x: 130,
-      y: 106,
+      x: 20,
+      y: -26,
     },
     sprites: {
       idle: {
-        imageSrc: "gameAssets/MedievalWarrior/Sprites/Idle.png",
+        imageSrc: "gameAssets/Medieval/Idle.png",
         framesMax: 6,
       },
       run: {
-        imageSrc: "gameAssets/MedievalWarrior/Sprites/Run.png",
+        imageSrc: "gameAssets/Medieval/Run.png",
         framesMax: 8,
       },
       damage: {
-        imageSrc: "gameAssets/MedievalWarrior/Sprites/Hit.png",
+        imageSrc: "gameAssets/Medieval/Hit.png",
         framesMax: 3,
       },
       jump: {
-        imageSrc: "gameAssets/MedievalWarrior/Sprites/Jump.png",
+        imageSrc: "gameAssets/Medieval/Jump.png",
         framesMax: 2,
       },
       fall: {
-        imageSrc: "gameAssets/MedievalWarrior/Sprites/Fall.png",
+        imageSrc: "gameAssets/Medieval/Fall.png",
         framesMax: 2,
       },
       attack1: {
-        imageSrc: "gameAssets/MedievalWarrior/Sprites/Attack1.png",
+        imageSrc: "gameAssets/Medieval/Attack1.png",
         framesMax: 4,
       },
       death: {
-        imageSrc: "gameAssets/MedievalWarrior/Sprites/Death.png",
+        imageSrc: "gameAssets/Medieval/Death.png",
         framesMax: 9,
       },
     },

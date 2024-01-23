@@ -45,14 +45,87 @@ class Sprite2 {
   update() {
     this.draw();
     this.framesElapsed++;
-    // if (this.framesElapsed % this.framesHold === 0) {
-    //   if (this.framesCurrent < this.framesMax - 1) {
-    //     this.framesCurrent++;
-    //   } else {
-    //     this.framesCurrent = 0;
-    //   }
-    // }
     this.animate();
+  }
+}
+class Standby extends Sprite2 {
+  constructor({
+    position = { x: 0, y: 0 },
+    velocity,
+    color = "red",
+    imgSrc,
+    scale = 2,
+    framesMax = 1,
+    offset = { x: 0, y: 0 },
+    sprites,
+    context,
+  }) {
+    super({
+      position,
+      imgSrc,
+      scale,
+      framesMax,
+      offset,
+    });
+    this.velocity = velocity;
+    this.width = 50;
+    this.height = 50;
+    this.context = context;
+    this.color = color;
+    this.isAttacking;
+    this.health = 100;
+    this.framesCurrent = 0;
+    this.framesElapsed = 0;
+    this.framesHold = 6;
+    this.sprites = sprites;
+
+    for (const sprite in this.sprites) {
+      sprites[sprite].image = new Image();
+      sprites[sprite].image.src = sprites[sprite].imageSrc;
+    }
+    this.animate();
+  }
+  animate() {
+    const animateFrame = () => {
+      this.draw(this.context);
+      // this.animate();
+      this.update(this.context);
+      if (!this.animationStopped) {
+        // Add a condition to stop recursion
+        requestAnimationFrame(animateFrame);
+      }
+    };
+
+    animateFrame();
+  }
+  draw(context) {
+    context.clearRect(
+      this.position.x - this.offset.x,
+      this.position.y - this.offset.y,
+      (this.sprites.idle.image.width / this.framesMax) * this.scale,
+      this.sprites.idle.image.height * this.scale
+    );
+    const horizontalScale = (this.isLeftTeam ? -1 : 1) * this.scale;
+
+    context.drawImage(
+      this.image,
+      this.framesCurrent * (this.image.width / this.framesMax),
+      0,
+      this.image.width / this.framesMax,
+      this.image.height,
+      this.position.x - this.offset.x,
+      this.position.y - this.offset.y,
+      (this.image.width / this.framesMax) * horizontalScale,
+      this.image.height * this.scale
+    );
+  }
+  update(context) {
+    // this.draw(context);
+    this.framesElapsed++;
+    if (this.framesElapsed % this.framesHold === 0) {
+      this.framesCurrent = (this.framesCurrent + 1) % this.framesMax;
+    }
+    // this.animate();
   }
 }
 class Fighter2 extends Sprite2 {
@@ -109,14 +182,6 @@ class Fighter2 extends Sprite2 {
     //attack boxes
     this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
-
-    //draw attack box
-    // context.fillRect(
-    //   this.attackBox.position.x,
-    //   this.attackBox.position.y,
-    //   this.attackBox.width,
-    //   this.attackBox.height
-    // );
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;

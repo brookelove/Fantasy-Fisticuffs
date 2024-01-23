@@ -19,7 +19,7 @@ main {
 }
 
 .choosenChar section div {
-    background-color: black;
+    /* background-color: black; */
     height: 100px;
     width: 100px;
    
