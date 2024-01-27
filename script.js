@@ -221,8 +221,6 @@ function animate() {
   }
 
   if (enemy.velocity.y < 0) {
-    // enemy.image = enemy.sprites.jump.image;
-    // enemy.framesMax = enemy.sprites.jump.framesMax;
     enemy.switchSprite("jump");
   } else if (enemy.velocity.y > 0) {
     enemy.switchSprite("fall");

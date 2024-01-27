@@ -1,9 +1,10 @@
 body {
     text-align: center;
+    padding:5% 0;
 }
 main {
     display: flex;
-    height: 100vh;
+    height: 60vh;
     width: 100vw;
     align-items: center;
     justify-content: space-around;
@@ -22,5 +23,39 @@ main {
     /* background-color: black; */
     height: 100px;
     width: 100px;
+    border: 1px solid transparent;
    
+}
+.charater canvas:hover {
+    border: 1px solid #5e4694;
+}
+footer section {
+    margin-top: 6%;
+    display: flex;
+    justify-content: space-evenly;
+}
+footer button {
+    padding: 1% 2%;
+    font-size: 1.3em;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: 15px 15px 0.7em grey;
+    transition: 0.3s ease-in;
+}
+.clickMe{
+    background-color: #63439b;
+    color:#382b55;
+}
+/* hover */
+.clickMe:hover{
+    box-shadow: 8px 8px 0.3em;
+    background-color: #63439b;
+    color:#382b55;
+    color:#cd9d45;
+}
+/* active */
+.disabled {
+    background-color:grey;
+    color: lightgrey;
+    box-shadow:8px 8px 0.3em;
 }

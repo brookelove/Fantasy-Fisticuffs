@@ -106,16 +106,16 @@ class Standby extends Sprite2 {
       this.sprites.idle.image.height * this.scale
     );
     const horizontalScale = (this.isLeftTeam ? -1 : 1) * this.scale;
-
+    // context.scale(-1, 1);
     context.drawImage(
       this.image,
-      this.framesCurrent * (this.image.width / this.framesMax),
+      this.framesCurrent * (this.sprites.idle.image.width / this.framesMax),
       0,
       this.image.width / this.framesMax,
       this.image.height,
       this.position.x - this.offset.x,
       this.position.y - this.offset.y,
-      (this.image.width / this.framesMax) * horizontalScale,
+      (this.image.width / this.framesMax) * this.scale,
       this.image.height * this.scale
     );
   }

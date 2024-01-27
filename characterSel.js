@@ -6,10 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const characterEl = document.createElement("div");
     characterEl.classList.add("character");
     characterEl.dataset.char = character.character_name;
-
+    characterEl.addEventListener("click", () =>
+      console.log(`This character is ${character.character_name}`)
+    );
     // Create canvas
     const canvas = document.createElement("canvas");
-    canvas.width = 250;
+    canvas.width = 200;
     canvas.height = 250;
     const context = canvas.getContext("2d");
     characterEl.appendChild(canvas);
@@ -60,16 +62,27 @@ document.addEventListener("DOMContentLoaded", function () {
   //     player.update(character.context);
   //   };
 
-  let populateCharacterBoxes = (teamChar, teamSelector) => {
+  let populateCharacterBoxes = (teamChar, teamSelector, teamSide) => {
     const characterBox = document.querySelector(`.${teamSelector} section`);
 
     teamChar.forEach((character) => {
       const { characterEl, context } = createCharacterEl(character);
+      characterEl.classList.add(teamSide);
       characterBox.appendChild(characterEl);
       new Standby({ ...character, context }); // Pass both character and context
     });
   };
 
-  populateCharacterBoxes(leftTeamChar, 'choosenChar[data-char="char1"]');
-  populateCharacterBoxes(rightTeamChar, 'choosenChar[data-char="char2"]');
+  let chooseYourPlayer = () => {};
+
+  populateCharacterBoxes(
+    leftTeamChar,
+    'choosenChar[data-char="char1"]',
+    "leftTeam"
+  );
+  populateCharacterBoxes(
+    rightTeamChar,
+    'choosenChar[data-char="char2"]',
+    "rightTeam"
+  );
 });
