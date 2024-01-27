@@ -1,3 +1,14 @@
+let storageEventListener = (event) => {
+  const leftPlayer = localStorage.getItem("player_one");
+  const rightPlayer = localStorage.getItem("player_two");
+  let buttonEl = document.getElementById("buttonEl");
+  if (leftPlayer && rightPlayer) {
+    buttonEl.classList.remove("disabled");
+    buttonEl.classList.add("clickMe");
+  }
+};
+window.addEventListener("storage", storageEventListener);
+
 document.addEventListener("DOMContentLoaded", function () {
   const leftTeamChar = leftTeam;
   const rightTeamChar = rightTeam;
@@ -5,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let chooseYourPlayer = (character, teamSide, div) => {
     let leftPEl = document.getElementById("leftPlayerName");
     let rightPEl = document.getElementById("rightPlayerName");
-    //then put the
+
     const elementsWithSameTeam = document.querySelectorAll(`.${teamSide}`);
     elementsWithSameTeam.forEach((element) => {
       element.classList.remove("active_player");
@@ -13,12 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
     //click on that div and then add in the active state for the button
     div.classList.add("active_player");
     if (teamSide.includes("left")) {
-      //leftside gets name -> document
       leftPEl.textContent = character.character_name;
+      localStorage.setItem("player_one", character.character_name);
     } else {
-      //right side gets name
       rightPEl.textContent = character.character_name;
+      localStorage.setItem("player_two", character.character_name);
     }
+    storageEventListener();
   };
 
   let createCharacterEl = (character, teamSide) => {
@@ -47,39 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return { characterEl, context };
   };
 
-  //   let animateChar = (character) => {
-  //     let player = new Standby({
-  //       position: {
-  //         x: 0,
-  //         y: 0,
-  //       },
-  //       velocity: {
-  //         x: 0,
-  //         y: 0,
-  //       },
-  //       offset: {
-  //         x: 0,
-  //         y: 0,
-  //       },
-  //       imgSrc: character.imgSrc,
-  //       framesMax: character.framesMax,
-  //       scale: character.scale,
-  //       offset: {
-  //         x: 0,
-  //         y: 0,
-  //       },
-  //       sprites: {
-  //         idle: {
-  //           imgSrc: character.sprites.idle.imgSrc,
-  //           framesMax: character.sprites.idle.framesMax,
-  //         },
-  //       },
-  //     });
-  //     player.draw(character.context);
-  //     player.animate();
-  //     player.update(character.context);
-  //   };
-
   let populateCharacterBoxes = (teamChar, teamSelector, teamSide) => {
     const characterBox = document.querySelector(`.${teamSelector} section`);
 
@@ -101,9 +80,16 @@ document.addEventListener("DOMContentLoaded", function () {
     'choosenChar[data-char="char2"]',
     "rightTeam"
   );
-  window.addEventListener("storage", function (event) {
-    if (event.key === "player_one" && event.key === "player_two") {
-      console.log(`${event.key} has changed in local storage.`);
-    }
-  });
+});
+let buttonEl = document.getElementById("buttonEl");
+buttonEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  console.log("Button clicked!");
+  // set a timeout
+  if (buttonEl.classList.contains("clickMe")) {
+    // window.location.href = "index.html";
+    console.log("ready to navigate");
+    window.location.assign("index.html");
+  }
 });
