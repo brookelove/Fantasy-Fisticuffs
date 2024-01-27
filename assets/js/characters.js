@@ -1,6 +1,6 @@
 let leftTeam = [
   {
-    character_name: "MartialHero",
+    character_name: "Martial Hero",
     imgSrc: "gameAssets/MartialHero/Sprites/Idle.png",
     framesMax: 8,
     scale: 2,
@@ -197,7 +197,7 @@ let leftTeam = [
 ];
 let rightTeam = [
   {
-    character_name: "MartialHero2",
+    character_name: "Martial Hero2",
     imgSrc: "gameAssets/MartialHero2/Sprites/Idle.png",
     framesMax: 4,
     scale: 2,
@@ -293,7 +293,7 @@ let rightTeam = [
     },
   },
   {
-    character_name: "EvilWizard",
+    character_name: "Evil Wizard",
     imgSrc: "gameAssets/EvilWizard2/Sprites/Idle.png",
     framesMax: 8,
     scale: 2,
@@ -341,7 +341,7 @@ let rightTeam = [
     },
   },
   {
-    character_name: "MedievalWarrior",
+    character_name: "Medieval Warrior",
     imgSrc: "gameAssets/Medieval/Idle.png",
     framesMax: 6,
     scale: 1.5,

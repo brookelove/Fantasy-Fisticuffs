@@ -20,14 +20,15 @@ main {
 }
 
 .choosenChar section div {
-    /* background-color: black; */
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 200px;
     border: 1px solid transparent;
-   
 }
-.charater canvas:hover {
-    border: 1px solid #5e4694;
+.active_player {
+    border: 0.2em solid #5e4694 !important;
+}
+.choosenChar section div:hover {
+    border: 0.2em solid #5e4694;
 }
 footer section {
     margin-top: 6%;

@@ -2,13 +2,31 @@ document.addEventListener("DOMContentLoaded", function () {
   const leftTeamChar = leftTeam;
   const rightTeamChar = rightTeam;
 
-  let createCharacterEl = (character) => {
+  let chooseYourPlayer = (character, teamSide, div) => {
+    let leftPEl = document.getElementById("leftPlayerName");
+    let rightPEl = document.getElementById("rightPlayerName");
+    //then put the
+    const elementsWithSameTeam = document.querySelectorAll(`.${teamSide}`);
+    elementsWithSameTeam.forEach((element) => {
+      element.classList.remove("active_player");
+    });
+    //click on that div and then add in the active state for the button
+    div.classList.add("active_player");
+    if (teamSide.includes("left")) {
+      //leftside gets name -> document
+      leftPEl.textContent = character.character_name;
+    } else {
+      //right side gets name
+      rightPEl.textContent = character.character_name;
+    }
+  };
+
+  let createCharacterEl = (character, teamSide) => {
     const characterEl = document.createElement("div");
-    characterEl.classList.add("character");
     characterEl.dataset.char = character.character_name;
-    characterEl.addEventListener("click", () =>
-      console.log(`This character is ${character.character_name}`)
-    );
+    characterEl.addEventListener("click", () => {
+      chooseYourPlayer(character, teamSide, characterEl);
+    });
     // Create canvas
     const canvas = document.createElement("canvas");
     canvas.width = 200;
@@ -25,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const charName = document.createElement("p");
     charName.textContent = character.character_name;
     characterEl;
-
+    characterEl.appendChild(charName);
     return { characterEl, context };
   };
 
@@ -66,14 +84,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const characterBox = document.querySelector(`.${teamSelector} section`);
 
     teamChar.forEach((character) => {
-      const { characterEl, context } = createCharacterEl(character);
+      const { characterEl, context } = createCharacterEl(character, teamSide);
       characterEl.classList.add(teamSide);
       characterBox.appendChild(characterEl);
-      new Standby({ ...character, context }); // Pass both character and context
+      new Standby({ ...character, context });
     });
   };
-
-  let chooseYourPlayer = () => {};
 
   populateCharacterBoxes(
     leftTeamChar,
@@ -85,4 +101,9 @@ document.addEventListener("DOMContentLoaded", function () {
     'choosenChar[data-char="char2"]',
     "rightTeam"
   );
+  window.addEventListener("storage", function (event) {
+    if (event.key === "player_one" && event.key === "player_two") {
+      console.log(`${event.key} has changed in local storage.`);
+    }
+  });
 });
