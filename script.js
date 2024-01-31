@@ -96,6 +96,30 @@ const enemy = new Fighter2(player_two[0]);
 
 // enemy.draw();
 
+const keys = {
+  a: {
+    pressed: false,
+  },
+  d: {
+    pressed: false,
+  },
+  w: {
+    pressed: false,
+  },
+  arrowLeft: {
+    pressed: false,
+  },
+  arrowRight: {
+    pressed: false,
+  },
+  arrowUp: {
+    pressed: false,
+  },
+  arrowDown: {
+    pressed: false,
+  },
+};
+
 let lastKey;
 
 countdown();

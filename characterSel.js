@@ -59,26 +59,48 @@ document.addEventListener("DOMContentLoaded", function () {
     return { characterEl, context };
   };
 
-  let populateCharacterBoxes = (teamChar, teamSelector, teamSide) => {
+  let populateCharacterBoxes = (
+    teamChar,
+    teamSelector,
+    teamSide,
+    initialPositions
+  ) => {
     const characterBox = document.querySelector(`.${teamSelector} section`);
 
-    teamChar.forEach((character) => {
+    teamChar.forEach((character, index) => {
       const { characterEl, context } = createCharacterEl(character, teamSide);
       characterEl.classList.add(teamSide);
+      characterEl.style.left = initialPositions[index].x + "px";
+      characterEl.style.top = initialPositions[index].y + "px";
       characterBox.appendChild(characterEl);
       new Standby({ ...character, context });
     });
   };
 
+  const leftTeamInitialPositions = [
+    { x: 50, y: 50 },
+    { x: 200, y: 50 },
+    { x: 350, y: 50 },
+    { x: 500, y: 50 },
+  ];
+  const rightTeamInitialPositions = [
+    { x: 50, y: 300 },
+    { x: 200, y: 300 },
+    { x: 350, y: 300 },
+    { x: 500, y: 300 },
+  ];
+
   populateCharacterBoxes(
     leftTeamChar,
     'choosenChar[data-char="char1"]',
-    "leftTeam"
+    "leftTeam",
+    leftTeamInitialPositions
   );
   populateCharacterBoxes(
     rightTeamChar,
     'choosenChar[data-char="char2"]',
-    "rightTeam"
+    "rightTeam",
+    rightTeamInitialPositions
   );
 });
 let buttonEl = document.getElementById("buttonEl");
