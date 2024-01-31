@@ -40,10 +40,6 @@ aside {
     justify-content: center;
     align-items: center;
 }
-/* aside a button {
-    position: relative;
-    top: 40%
-} */
 aside a button {
     margin-top: 255%;
 }
