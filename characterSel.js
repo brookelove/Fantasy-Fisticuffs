@@ -41,8 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // Create canvas
     const canvas = document.createElement("canvas");
-    canvas.width = 200;
-    canvas.height = 250;
+    canvas.width = 300;
+    canvas.height = 300;
     const context = canvas.getContext("2d");
     characterEl.appendChild(canvas);
 
