@@ -20,7 +20,7 @@ function whoWins({ player, enemy, timerEl }) {
   if (player.health === enemy.health) {
     displayResEl.innerHTML = "Tie";
   } else if (player.health > enemy.health) {
-    displayResEl.innerHTML = "Player 1 Wins";
+    displayResEl.innerHTML = `Player 1 Wins"`;
   } else if (player.health < enemy.health) {
     displayResEl.innerHTML = "Player 2 Wins";
   }

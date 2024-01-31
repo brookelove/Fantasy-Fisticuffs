@@ -4,9 +4,17 @@ let leftTeam = [
     imgSrc: "gameAssets/MartialHero/Sprites/Idle.png",
     framesMax: 8,
     scale: 2,
+    position: {
+      x: 0,
+      y: 0,
+    },
+    velocity: {
+      x: 0,
+      y: 0,
+    },
     offset: {
-      x: 130,
-      y: 95,
+      x: 0,
+      y: 90,
     },
     sprites: {
       idle: {
@@ -53,9 +61,17 @@ let leftTeam = [
     imgSrc: "gameAssets/HeroKnight/Sprites/Idle.png",
     framesMax: 11,
     scale: 2,
+    position: {
+      x: 0,
+      y: 0,
+    },
+    velocity: {
+      x: 0,
+      y: 0,
+    },
     offset: {
-      x: 130,
-      y: 78,
+      x: 0,
+      y: 75,
     },
     sprites: {
       idle: {
@@ -101,6 +117,14 @@ let leftTeam = [
     imgSrc: "gameAssets/FantasyWarrior/Sprites/Idle.png",
     framesMax: 10,
     scale: 2.5,
+    position: {
+      x: 0,
+      y: 0,
+    },
+    velocity: {
+      x: 0,
+      y: 0,
+    },
     offset: {
       x: 110,
       y: 95,
@@ -149,10 +173,18 @@ let leftTeam = [
     character_name: "Huntress",
     imgSrc: "gameAssets/Huntress/Sprites/Idle.png",
     framesMax: 8,
-    scale: 3,
+    scale: 2.6,
+    position: {
+      x: 0,
+      y: 0,
+    },
+    velocity: {
+      x: 0,
+      y: 0,
+    },
     offset: {
-      x: 130,
-      y: 95,
+      x: 0,
+      y: 100,
     },
     sprites: {
       idle: {
@@ -201,9 +233,18 @@ let rightTeam = [
     imgSrc: "gameAssets/MartialHero2/Sprites/Idle.png",
     framesMax: 4,
     scale: 2,
+    position: {
+      x: 400,
+      y: 100,
+    },
+    velocity: {
+      x: 0,
+      y: 0,
+    },
+    color: "blue",
     offset: {
-      x: 130,
-      y: 106,
+      x: -50,
+      y: 100,
     },
     sprites: {
       idle: {
@@ -249,9 +290,18 @@ let rightTeam = [
     imgSrc: "gameAssets/Wizard/Idle.png",
     framesMax: 6,
     scale: 1.3,
+    position: {
+      x: 400,
+      y: 100,
+    },
+    velocity: {
+      x: 0,
+      y: 0,
+    },
+    color: "blue",
     offset: {
-      x: 50,
-      y: 33,
+      x: -50,
+      y: 30,
     },
     sprites: {
       idle: {
@@ -297,9 +347,18 @@ let rightTeam = [
     imgSrc: "gameAssets/EvilWizard2/Sprites/Idle.png",
     framesMax: 8,
     scale: 2,
+    position: {
+      x: 400,
+      y: 100,
+    },
+    velocity: {
+      x: 0,
+      y: 0,
+    },
+    color: "blue",
     offset: {
-      x: 130,
-      y: 186,
+      x: -50,
+      y: 180,
     },
     sprites: {
       idle: {
@@ -345,9 +404,18 @@ let rightTeam = [
     imgSrc: "gameAssets/Medieval/Idle.png",
     framesMax: 6,
     scale: 1.5,
+    position: {
+      x: 400,
+      y: 100,
+    },
+    velocity: {
+      x: 0,
+      y: 0,
+    },
+    color: "blue",
     offset: {
-      x: 20,
-      y: -26,
+      x: -50,
+      y: 30,
     },
     sprites: {
       idle: {

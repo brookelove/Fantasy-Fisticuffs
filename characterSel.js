@@ -88,7 +88,6 @@ buttonEl.addEventListener("click", (e) => {
   console.log("Button clicked!");
   // set a timeout
   if (buttonEl.classList.contains("clickMe")) {
-    // window.location.href = "index.html";
     console.log("ready to navigate");
     window.location.assign("index.html");
   }
