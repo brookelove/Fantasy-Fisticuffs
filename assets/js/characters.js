@@ -108,7 +108,7 @@ let leftTeam = [
         x: 110,
         y: 60,
       },
-      width: 140,
+      width: 60,
       height: 50,
     },
   },
@@ -162,7 +162,7 @@ let leftTeam = [
     // double check the attacj box measurements
     attackBox: {
       offset: {
-        x: 110,
+        x: 40,
         y: 60,
       },
       width: 140,
@@ -222,7 +222,7 @@ let leftTeam = [
         x: 110,
         y: 60,
       },
-      width: 140,
+      width: 80,
       height: 50,
     },
   },
@@ -338,7 +338,7 @@ let rightTeam = [
         x: -95,
         y: 60,
       },
-      width: 120,
+      width: 70,
       height: 50,
     },
   },
@@ -392,10 +392,10 @@ let rightTeam = [
     },
     attackBox: {
       offset: {
-        x: -95,
+        x: -5,
         y: 60,
       },
-      width: 120,
+      width: 20,
       height: 50,
     },
   },
