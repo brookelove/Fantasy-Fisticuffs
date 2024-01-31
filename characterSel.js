@@ -88,7 +88,7 @@ buttonEl.addEventListener("click", (e) => {
   console.log("Button clicked!");
   // set a timeout
   if (buttonEl.classList.contains("clickMe")) {
-    console.log("ready to navigate");
-    window.location.assign("index.html");
+    // console.log("ready to navigate");
+    window.location.assign("game.html");
   }
 });

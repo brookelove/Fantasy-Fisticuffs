@@ -32,29 +32,29 @@ class Sprite2 {
     );
   }
 
-  // animate() {
-  //   this.framesElapsed++;
-  //   if (this.framesElapsed % this.framesHold === 0) {
-  //     if (this.framesCurrent < this.framesMax - 1) {
-  //       this.framesCurrent++;
-  //     } else {
-  //       this.framesCurrent = 0;
-  //     }
-  //   }
-  // }
   animate() {
-    const animateFrame = () => {
-      this.draw(this.context);
-      this.update(this.context);
-      if (!this.animationStopped) {
-        // Add a condition to stop recursion
-        requestAnimationFrame(animateFrame);
+    this.framesElapsed++;
+    if (this.framesElapsed % this.framesHold === 0) {
+      if (this.framesCurrent < this.framesMax - 1) {
+        this.framesCurrent++;
+      } else {
+        this.framesCurrent = 0;
       }
-      this.animate(); // Add this line to ensure continuous animation
-    };
-
-    animateFrame();
+    }
   }
+  // animate() {
+  //   const animateFrame = () => {
+  //     this.draw(this.context);
+  //     this.update(this.context);
+  //     if (!this.animationStopped) {
+  //       // Add a condition to stop recursion
+  //       requestAnimationFrame(animateFrame);
+  //     }
+  //     this.animate(); // Add this line to ensure continuous animation
+  //   };
+
+  //   animateFrame();
+  // }
   update() {
     this.draw();
     this.framesElapsed++;
