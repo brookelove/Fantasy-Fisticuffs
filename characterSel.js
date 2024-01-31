@@ -41,13 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // Create canvas
     const canvas = document.createElement("canvas");
-    canvas.width = 300;
-    canvas.height = 250;
+    canvas.width = 250;
+    canvas.height = 270;
     const context = canvas.getContext("2d");
     characterEl.appendChild(canvas);
 
     const characterImage = new Image();
     characterImage.src = character.imgSrc;
+    console.log(characterImage);
     characterImage.onload = function () {
       context.drawImage(characterImage, 0, 0, canvas.width, canvas.height);
     };
@@ -56,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     charName.textContent = character.character_name;
     characterEl;
     characterEl.appendChild(charName);
+
     return { characterEl, context };
   };
 

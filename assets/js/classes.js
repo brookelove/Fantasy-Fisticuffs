@@ -113,8 +113,8 @@ class Standby extends Sprite2 {
   }
   draw(context) {
     context.clearRect(
-      this.position.x - this.offset.x,
-      this.position.y - this.offset.y,
+      0,
+      0,
       (this.sprites.idle.image.width / this.framesMax) * this.scale,
       this.sprites.idle.image.height * this.scale
     );
@@ -126,8 +126,8 @@ class Standby extends Sprite2 {
       0,
       this.image.width / this.framesMax,
       this.image.height,
-      this.position.x - this.offset.x,
-      this.position.y - this.offset.y,
+      0,
+      0,
       (this.image.width / this.framesMax) * this.scale,
       this.image.height * this.scale
     );
