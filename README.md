@@ -39,7 +39,7 @@ This is a 2 player game that uses AWD and space bar for player 1 and the arrow k
 
 [Oak Woods Shop and Lanetern](https://brullov.itch.io/oak-woods)
 
-[Samuri Sprites](https://luizmelo.itch.io/)
+[Sprites](https://luizmelo.itch.io/)
 
 [Game Creation Tutorial By Chris Courses](https://www.youtube.com/watch?v=vyqbNFMDRGQ)
 

@@ -3,43 +3,67 @@
     src: url("../../gameAssets/Fonts/SummerPixel22Regular-jE0W7.ttf");
 }
 
-main {
-    background-image: url(../Images/1.png);
-    width: 100vw;
+main, aside{
+    width: auto;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 main section {
-    position: relative;
-    top: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 40%;
+}
+main section h1 {
+    font-family: "retroFont";
+    font-size: 700%;    
+    color: #605875;
+}
+main section .popOut {
+    color: antiquewhite;
+    position: absolute;
+    top: -2%;
+    left: 1%;
+    width: 100%;
+}
+main section div {
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
 }
-main section a button, aside a button {
-    padding: 1%;
+main section a button, aside a button, button {
+    padding-top:3%;
+    padding-left: 5%;
+    width: max-content;
+    text-align: center;
     font-family: "retroFont";
-    font-size: 1.5em;
+    font-size: 1.75em;
+    letter-spacing: 0.4em;
     border: 5px #605875 solid;
     border-radius: 10px;
     color: #605875;
-    background-color: whitesmoke;
+    background-color: antiquewhite;
     transition: all ease-in 0.5s;
 }
-main section button:hover, aside a button:hover {
+main section button:hover, aside a button:hover, button:hover  {
     color: whitesmoke;
     background-color: #605875;
 }
-aside {
-    background-image: url(../Images/2.png);
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+aside video {
+   width: 100%; 
 }
-aside a button {
-    margin-top: 255%;
+#instructions {
+  position: absolute;
+  bottom: -110%;
+  left: 0;
+  width: 100%;
+  padding-bottom:1%;
 }

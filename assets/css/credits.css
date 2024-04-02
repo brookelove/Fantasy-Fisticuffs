@@ -1,0 +1,65 @@
+@font-face {
+    font-family:"retroFont" ;
+    src: url("../../gameAssets/Fonts/SummerPixel22Regular-jE0W7.ttf");
+}
+
+body {
+    font-family: "retroFont";
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+header h1 {
+    font-size: 300%;
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ul {
+    list-style-type: none;
+}
+ul li {
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    font-size: 300%;
+    margin: 10% 0;
+}
+ul li p:nth-child(1){
+    text-align: left;
+    margin-right: 2rem;
+    }
+ul li p:nth-child(2){
+    color: blue;
+    text-align: right;
+    margin-left: 2rem;
+}
+.separator {
+    border-top: 1px solid white;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin: 10% 0;
+}
+
+main section a button, aside a button, button {
+    margin-bottom: 4%;
+    padding-top:1%;
+    padding-left: 1%; 
+    width: max-content;
+    text-align: center;
+    font-family: "retroFont";
+    font-size: 1.75em;
+    letter-spacing: 0.4em;
+    border: 5px #605875 solid;
+    border-radius: 10px;
+    color: #605875;
+    background-color: antiquewhite;
+    transition: all ease-in 0.5s;
+}
+main section button:hover, aside a button:hover, button:hover  {
+    color: whitesmoke;
+    background-color: #605875;
+}

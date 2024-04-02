@@ -25,6 +25,12 @@ function whoWins({ player, enemy, timerEl }) {
     displayResEl.innerHTML = "Player 2 Wins";
   }
   gameOver = true;
+
+  if (gameOver) {
+    setTimeout(() => {
+      window.location.href = "credits.html";
+    }, 3000);
+  }
 }
 function countdown() {
   if (timeLeft > 0) {

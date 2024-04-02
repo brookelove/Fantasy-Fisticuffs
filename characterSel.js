@@ -110,9 +110,7 @@ buttonEl.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
   console.log("Button clicked!");
-  // set a timeout
   if (buttonEl.classList.contains("clickMe")) {
-    // console.log("ready to navigate");
     window.location.assign("game.html");
   }
 });

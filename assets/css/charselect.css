@@ -48,19 +48,34 @@ footer button {
     transition: 0.3s ease-in;
 }
 .clickMe{
-    background-color: #63439b;
-    color:#382b55;
+    margin-bottom: 1%;
+    padding-top:1%;
+    padding-left: 3%; 
+    width: max-content;
+    text-align: center;
+    font-family: "retroFont";
+    font-size: 1.75em;
+    letter-spacing: 0.4em;
+    border: 5px #605875 solid;
+    border-radius: 10px;
+    color: #605875;
+    background-color: antiquewhite;
+    transition: all ease-in 0.5s;
 }
+
 /* hover */
 .clickMe:hover{
-    box-shadow: 8px 8px 0.3em grey;
-    background-color: #63439b;
-    color:#382b55;
-    color:#cd9d45;
+    /* box-shadow: 8px 8px 0.3em grey; */
+    color: whitesmoke;
+    background-color: #605875;
 }
 /* active */
 .disabled {
     background-color:grey;
     color: lightgrey;
-    box-shadow:8px 8px 0.3em;
+    /* box-shadow:8px 8px 0.3em; */
+}
+main section button:hover, aside a button:hover, button:hover  {
+    color: whitesmoke;
+    background-color: #605875;
 }
